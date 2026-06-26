@@ -1,583 +1,277 @@
 <!DOCTYPE html>
-<html lang="en"> 
+
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>GoreBox Private Server — Tutorial</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;500;600&display=swap');
 
-  /* ── TOKENS ── */
   :root {
-    --bg:        #0a0a0a;
-    --bg2:       #111111;
-    --bg3:       #1a1a1a;
-    --border:    #2a2a2a;
-    --border2:   #3a3a3a;
-    --text:      #e8e8e8;
-    --muted:     #888;
-    --accent:    #ffffff;
-    --danger:    #ff4444;
-    --warn:      #ffaa00;
-    --code-bg:   #161616;
-    --radius:    6px;
-
-    --font-display: 'Kenyan Coffee', 'Share Tech Mono', monospace;
-    --font-body:    'Inter', sans-serif;
-    --font-mono:    'Share Tech Mono', 'Courier New', monospace;
+    --bg:      #0a0a0a;
+    --bg2:     #111111;
+    --bg3:     #1a1a1a;
+    --border:  #2a2a2a;
+    --border2: #3a3a3a;
+    --text:    #e8e8e8;
+    --muted:   #888;
+    --accent:  #ffffff;
+    --danger:  #ff4444;
+    --warn:    #ffaa00;
+    --code-bg: #161616;
+    --radius:  6px;
+    --font-display: 'Kenyan Coffee','Share Tech Mono',monospace;
+    --font-body:    'Inter',sans-serif;
+    --font-mono:    'Share Tech Mono','Courier New',monospace;
   }
-
-  @font-face {
-    font-family: 'Kenyan Coffee';
-    src: local('Kenyan Coffee');
-  }
-
-  /* ── RESET ── */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-body);
-    font-size: 15px;
-    line-height: 1.7;
-    min-height: 100vh;
-  }
+  @font-face { font-family:'Kenyan Coffee'; src:local('Kenyan Coffee'); }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.7;min-height:100vh;}
 
   /* ── HERO ── */
-  .hero {
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-    padding: 80px 24px 64px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 39px,
-      var(--border) 39px,
-      var(--border) 40px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 39px,
-      var(--border) 39px,
-      var(--border) 40px
-    );
-    opacity: 0.18;
-    pointer-events: none;
-  }
-  .hero-tag {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 20px;
-  }
-  .hero h1 {
-    font-family: var(--font-display);
-    font-size: clamp(2.2rem, 6vw, 4rem);
-    font-weight: 400;
-    letter-spacing: 2px;
-    color: var(--accent);
-    text-transform: uppercase;
-    line-height: 1.1;
-    margin-bottom: 20px;
-    position: relative;
-  }
-  .hero h1 span {
-    display: block;
-    font-size: 0.45em;
-    letter-spacing: 6px;
-    color: var(--muted);
-    margin-bottom: 8px;
-  }
-  .hero-sub {
-    font-size: 14px;
-    color: var(--muted);
-    max-width: 480px;
-    margin: 0 auto 36px;
-  }
-  .hero-pills {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  .pill {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    border: 1px solid var(--border2);
-    padding: 5px 14px;
-    border-radius: 2px;
-    color: var(--muted);
-  }
+  .hero{background:var(--bg);border-bottom:1px solid var(--border);padding:72px 24px 56px;text-align:center;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 39px,var(--border) 39px,var(--border) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,var(--border) 39px,var(--border) 40px);opacity:.15;pointer-events:none;}
+  .hero-tag{font-family:var(--font-mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:18px;}
+  .hero h1{font-family:var(--font-display);font-size:clamp(2rem,6vw,3.8rem);font-weight:400;letter-spacing:2px;color:var(--accent);text-transform:uppercase;line-height:1.1;margin-bottom:18px;position:relative;}
+  .hero h1 span{display:block;font-size:.44em;letter-spacing:6px;color:var(--muted);margin-bottom:6px;}
+  .hero-sub{font-size:14px;color:var(--muted);max-width:480px;margin:0 auto 32px;}
+  .hero-pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+  .pill{font-family:var(--font-mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;border:1px solid var(--border2);padding:4px 12px;border-radius:2px;color:var(--muted);}
+
+  /* ── VERSION TABS ── */
+  .version-bar{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:var(--bg2);padding:0 32px;position:sticky;top:0;z-index:100;}
+  .version-tabs{display:flex;gap:0;}
+  .vtab{font-family:var(--font-display);font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:14px 24px;border:none;background:none;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;position:relative;}
+  .vtab:hover{color:var(--text);}
+  .vtab.active{color:var(--accent);border-bottom-color:var(--accent);}
+  .vtab .badge{font-size:9px;letter-spacing:1px;background:var(--border2);padding:2px 6px;border-radius:2px;margin-left:6px;vertical-align:middle;}
+  .vtab.active .badge{background:var(--accent);color:var(--bg);}
+
+  /* ── LANG TOGGLE ── */
+  .lang-toggle{font-family:var(--font-mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;border:1px solid var(--border2);background:none;color:var(--muted);padding:6px 14px;border-radius:3px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px;}
+  .lang-toggle:hover{border-color:var(--accent);color:var(--accent);}
+  .lang-toggle.ru{border-color:var(--accent);color:var(--accent);}
 
   /* ── LAYOUT ── */
-  .layout {
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    max-width: 1100px;
-    margin: 0 auto;
-    gap: 0;
-    min-height: 100vh;
-  }
+  .layout{display:grid;grid-template-columns:210px 1fr;max-width:1100px;margin:0 auto;}
 
   /* ── SIDEBAR ── */
-  .sidebar {
-    border-right: 1px solid var(--border);
-    padding: 40px 0 40px;
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    overflow-y: auto;
-  }
-  .sidebar-label {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--muted);
-    padding: 0 24px;
-    margin-bottom: 16px;
-  }
-  .sidebar nav a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 9px 24px;
-    text-decoration: none;
-    color: var(--muted);
-    font-size: 13px;
-    border-left: 2px solid transparent;
-    transition: all 0.15s;
-    font-family: var(--font-body);
-  }
-  .sidebar nav a:hover {
-    color: var(--text);
-    border-left-color: var(--border2);
-    background: var(--bg2);
-  }
-  .sidebar nav a.active {
-    color: var(--accent);
-    border-left-color: var(--accent);
-    background: var(--bg2);
-  }
-  .sidebar nav a .num {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--border2);
-    min-width: 18px;
-  }
+  .sidebar{border-right:1px solid var(--border);padding:36px 0;position:sticky;top:49px;height:calc(100vh - 49px);overflow-y:auto;}
+  .sidebar-label{font-family:var(--font-mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);padding:0 22px;margin-bottom:14px;}
+  .sidebar nav a{display:flex;align-items:center;gap:10px;padding:8px 22px;text-decoration:none;color:var(--muted);font-size:13px;border-left:2px solid transparent;transition:all .15s;}
+  .sidebar nav a:hover{color:var(--text);border-left-color:var(--border2);background:var(--bg2);}
+  .sidebar nav a.active{color:var(--accent);border-left-color:var(--accent);background:var(--bg2);}
+  .sidebar nav a .num{font-family:var(--font-mono);font-size:10px;color:var(--border2);min-width:18px;}
 
   /* ── CONTENT ── */
-  .content {
-    padding: 48px 56px 80px;
-    max-width: 760px;
-  }
+  .content{padding:48px 52px 80px;max-width:760px;}
+  .tab-content{display:none;}
+  .tab-content.active{display:block;}
 
   /* ── CHAPTER ── */
-  .chapter {
-    margin-bottom: 80px;
-    padding-bottom: 80px;
-    border-bottom: 1px solid var(--border);
-  }
-  .chapter:last-child {
-    border-bottom: none;
-  }
-  .chapter-eyebrow {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 10px;
-  }
-  .chapter h2 {
-    font-family: var(--font-display);
-    font-size: 1.7rem;
-    font-weight: 400;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 24px;
-    line-height: 1.2;
-  }
-  .chapter p {
-    color: #c8c8c8;
-    margin-bottom: 16px;
-  }
-  .chapter p:last-child { margin-bottom: 0; }
+  .chapter{margin-bottom:72px;padding-bottom:72px;border-bottom:1px solid var(--border);}
+  .chapter:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+  .chapter-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+  .chapter h2{font-family:var(--font-display);font-size:1.65rem;font-weight:400;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:22px;line-height:1.2;}
+  .chapter h3{font-family:var(--font-display);font-size:1rem;font-weight:400;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin:28px 0 14px;}
+  .chapter p{color:#c8c8c8;margin-bottom:14px;}
+  .chapter p:last-child{margin-bottom:0;}
 
-  /* ── STEP ── */
-  .step {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 20px;
-  }
-  .step-num {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--border2);
-    padding-top: 2px;
-    min-width: 24px;
-  }
-  .step-body { flex: 1; }
-  .step-body strong {
-    display: block;
-    color: var(--text);
-    font-size: 14px;
-    margin-bottom: 4px;
-    font-weight: 600;
-  }
-  .step-body p { margin-bottom: 0; font-size: 14px; }
+  /* ── STEPS ── */
+  .step{display:flex;gap:14px;margin-bottom:18px;}
+  .step-num{font-family:var(--font-mono);font-size:11px;color:var(--border2);padding-top:2px;min-width:22px;}
+  .step-body{flex:1;}
+  .step-body strong{display:block;color:var(--text);font-size:14px;margin-bottom:3px;font-weight:600;}
+  .step-body p{margin-bottom:0;font-size:14px;}
 
-  /* ── WARN BOXES ── */
-  .box {
-    border-left: 3px solid;
-    padding: 14px 18px;
-    margin: 24px 0;
-    border-radius: 0 var(--radius) var(--radius) 0;
-    font-size: 13.5px;
-  }
-  .box.warn  { border-color: var(--warn);   background: rgba(255,170,0,0.06);  color: #ffcc66; }
-  .box.danger{ border-color: var(--danger);  background: rgba(255,68,68,0.06);   color: #ff8888; }
-  .box.info  { border-color: var(--border2); background: var(--bg2);            color: var(--muted); }
-  .box strong { display: block; margin-bottom: 4px; color: inherit; }
+  /* ── BOXES ── */
+  .box{border-left:3px solid;padding:12px 16px;margin:20px 0;border-radius:0 var(--radius) var(--radius) 0;font-size:13.5px;}
+  .box.warn{border-color:var(--warn);background:rgba(255,170,0,.06);color:#ffcc66;}
+  .box.danger{border-color:var(--danger);background:rgba(255,68,68,.06);color:#ff8888;}
+  .box.info{border-color:var(--border2);background:var(--bg2);color:var(--muted);}
+  .box strong{display:block;margin-bottom:3px;color:inherit;}
 
   /* ── LINKS ── */
-  a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
-  a:hover { color: #fff; }
+  a{color:var(--text);text-decoration:underline;text-underline-offset:3px;}
+  a:hover{color:#fff;}
 
-  /* ── CODE BLOCK ── */
-  .code-wrap {
-    background: var(--code-bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    margin: 20px 0;
-    overflow: hidden;
-  }
-  .code-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 16px;
-    border-bottom: 1px solid var(--border);
-    background: var(--bg3);
-  }
-  .code-lang {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .copy-btn {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    background: none;
-    border: 1px solid var(--border2);
-    color: var(--muted);
-    padding: 4px 12px;
-    cursor: pointer;
-    border-radius: 3px;
-    transition: all 0.15s;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .copy-btn.copied { border-color: #44ff88; color: #44ff88; }
-  .code-wrap pre {
-    padding: 20px;
-    overflow-x: auto;
-    font-family: var(--font-mono);
-    font-size: 13px;
-    line-height: 1.6;
-    color: #d4d4d4;
-  }
-  /* syntax tint */
-  .kw { color: #7cb9f2; }
-  .str { color: #ce9178; }
-  .cmt { color: #6a9955; font-style: italic; }
-  .cls { color: #4ec9b0; }
-  .prop{ color: #9cdcfe; }
-  .num2{ color: #b5cea8; }
+  /* ── CODE ── */
+  .code-wrap{background:var(--code-bg);border:1px solid var(--border);border-radius:var(--radius);margin:18px 0;overflow:hidden;}
+  .code-header{display:flex;align-items:center;justify-content:space-between;padding:7px 14px;border-bottom:1px solid var(--border);background:var(--bg3);}
+  .code-lang{font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+  .copy-btn{font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;background:none;border:1px solid var(--border2);color:var(--muted);padding:3px 10px;cursor:pointer;border-radius:3px;transition:all .15s;display:flex;align-items:center;gap:5px;}
+  .copy-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .copy-btn.copied{border-color:#44ff88;color:#44ff88;}
+  .code-wrap pre{padding:18px;overflow-x:auto;font-family:var(--font-mono);font-size:12.5px;line-height:1.6;color:#d4d4d4;}
+  code{font-family:var(--font-mono);font-size:12.5px;background:var(--bg3);border:1px solid var(--border);padding:1px 5px;border-radius:3px;color:#e8e8e8;}
 
-  /* ── INLINE CODE ── */
-  code {
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    padding: 1px 6px;
-    border-radius: 3px;
-    color: #e8e8e8;
-  }
+  /* syntax */
+  .kw{color:#7cb9f2;} .str{color:#ce9178;} .cmt{color:#6a9955;font-style:italic;}
+  .cls{color:#4ec9b0;} .prop{color:#9cdcfe;} .pp{color:#c586c0;}
 
   /* ── SCREENSHOTS ── */
-  .screenshots {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin: 24px 0;
-  }
-  .screenshot-item {
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    background: var(--bg2);
-  }
-  .screenshot-label {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    padding: 8px 14px;
-    border-bottom: 1px solid var(--border);
-    background: var(--bg3);
-  }
-  .screenshot-item img {
-    width: 100%;
-    display: block;
-  }
+  .screenshots{display:flex;flex-direction:column;gap:14px;margin:20px 0;}
+  .screenshot-item{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--bg2);}
+  .screenshot-label{font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:7px 12px;border-bottom:1px solid var(--border);background:var(--bg3);}
+  .screenshot-item img{width:100%;display:block;}
 
-  /* ── DIVIDER ── */
-  .divider {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 32px 0;
-  }
+  hr.divider{border:none;border-top:1px solid var(--border);margin:28px 0;}
 
-  /* ── FINAL CTA ── */
-  .cta-box {
-    background: var(--bg2);
-    border: 1px solid var(--border2);
-    border-radius: var(--radius);
-    padding: 32px;
-    text-align: center;
-    margin-top: 40px;
-  }
-  .cta-box h3 {
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 12px;
-  }
-  .cta-box p { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
-  .cta-link {
-    display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    border: 1px solid var(--accent);
-    padding: 10px 28px;
-    border-radius: 3px;
-    text-decoration: none;
-    color: var(--accent);
-    transition: all 0.15s;
-  }
-  .cta-link:hover { background: var(--accent); color: var(--bg); }
+  /* ── CTA ── */
+  .cta-box{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);padding:28px;text-align:center;margin-top:36px;}
+  .cta-box h3{font-family:var(--font-display);font-size:1.2rem;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+  .cta-box p{color:var(--muted);font-size:14px;margin-bottom:18px;}
+  .cta-link{display:inline-block;font-family:var(--font-mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;border:1px solid var(--accent);padding:9px 26px;border-radius:3px;text-decoration:none;color:var(--accent);transition:all .15s;}
+  .cta-link:hover{background:var(--accent);color:var(--bg);}
 
   /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    .layout { grid-template-columns: 1fr; }
-    .sidebar { display: none; }
-    .content { padding: 32px 20px 60px; }
-    .hero { padding: 60px 20px 48px; }
+  @media(max-width:768px){
+    .layout{grid-template-columns:1fr;}
+    .sidebar{display:none;}
+    .content{padding:28px 18px 60px;}
+    .hero{padding:52px 18px 44px;}
+    .version-bar{padding:0 16px;}
+    .vtab{padding:12px 14px;font-size:12px;}
   }
 </style>
 </head>
 <body>
-
 <!-- HERO -->
 <div class="hero">
-  <p class="hero-tag">Documentation / Private Server</p>
-  <h1>
-    <span>GoreBox</span>
-    Private Server
-  </h1>
-  <p class="hero-sub">A beginner's guide to setting up your own private GoreBox server — covering tools, version downloading, coding, and backend configuration.</p>
-  <div class="hero-pills">
-    <span class="pill">BepInEx IL2CPP</span>
-    <span class="pill">HarmonyLib</span>
-    <span class="pill">PlayFab</span>
-    <span class="pill">Photon PUN2</span>
-    <span class="pill">C# / .NET 4.7.2</span>
-  </div>
+<p class="hero-tag">Documentation / Private Server</p>
+<h1>
+<span>GoreBox</span>
+<span id="hero-title">Private Server</span>
+</h1>
+<p class="hero-sub">A beginner's guide to setting up your own private GoreBox server — covering tools, version downloading, coding, and backend configuration.</p>
+<div class="hero-pills">
+<span class="pill">BepInEx IL2CPP</span>
+<span class="pill">MinHook / HarmonyLib</span>
+<span class="pill">PlayFab</span>
+<span class="pill">Photon PUN2</span>
+<span class="pill">C++ / C# .NET 4.7.2</span>
+</div>
+</div>
+<!-- VERSION BAR -->
+<div class="version-bar">
+<div class="version-tabs">
+<button class="vtab active" onclick="switchVersion('v15')">V15 <span class="badge">C#</span></button>
+<button class="vtab" onclick="switchVersion('v14')">V14 <span class="badge">C++</span></button>
+<button class="vtab" onclick="switchVersion('v13')">V13 <span class="badge">C++</span></button>
 </div>
 
-<!-- MAIN LAYOUT -->
+</div>
+<!-- LAYOUT -->
 <div class="layout">
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <p class="sidebar-label">Chapters</p>
-    <nav>
-      <a href="#ch1" class="active"><span class="num">01</span> Required Software</a>
-      <a href="#ch2"><span class="num">02</span> Downloading a Version</a>
-      <a href="#ch3"><span class="num">03</span> Coding the Plugin</a>
-      <a href="#ch4"><span class="num">04</span> Testing</a>
-      <a href="#ch5"><span class="num">05</span> PlayFab + Photon Setup</a>
-      <a href="#ch6"><span class="num">06</span> Conclusion</a>
-    </nav>
-  </aside>
-
-  <!-- CONTENT -->
-  <main class="content">
-
-    <!-- CH1 -->
-    <section class="chapter" id="ch1">
-      <p class="chapter-eyebrow">Chapter 01</p>
-      <h2>Required Software</h2>
-      <p>Before you can do anything, you need three tools installed and ready. Don't skip any of them — each one handles a different part of the process.</p>
-
-      <div class="step">
-        <span class="step-num">1.</span>
-        <div class="step-body">
-          <strong>dnSpy</strong>
-          <p>Used to inspect <code>Assembly-CSharp.dll</code> — the game's compiled code. This is how you find method names like <code>VersionValidator</code> that you'll need to hook. Download it from the <a href="https://github.com/dnspy/dnspy" target="_blank">official GitHub page</a>.</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <span class="step-num">2.</span>
-        <div class="step-body">
-          <strong>Visual Studio 2022</strong>
-          <p>Used to write and compile your BepInEx plugin as a <code>.dll</code> file. <strong>Do not confuse this with Visual Studio Code</strong> — they are completely different programs. You need the full Visual Studio IDE.</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <span class="step-num">3.</span>
-        <div class="step-body">
-          <strong>BepInEx (IL2CPP build, version 6+)</strong>
-          <p>The mod loader that lets you inject code into the game. GoreBox runs on IL2CPP, so you <strong>must</strong> use an IL2CPP build — the standard GitHub release will not work.</p>
-        </div>
-      </div>
-
-      <div class="box warn">
-        <strong>⚠ Important</strong>
-        Download BepInEx from the official bleeding-edge build server at <a href="https://builds.bepinex.dev/projects/bepinex_be" target="_blank">builds.bepinex.dev</a>. Always pick the <code>IL2CPP</code> build. Any version ≥ 6 works.
-      </div>
-    </section>
-
-    <!-- CH2 -->
-    <section class="chapter" id="ch2">
-      <p class="chapter-eyebrow">Chapter 02</p>
-      <h2>Downloading a Specific Version via SteamDB</h2>
-      <p>Your private server needs to run on a specific GoreBox version. If you own the game on Steam, you can download any old depot directly through the Steam console.</p>
-
-      <div class="step">
-        <span class="step-num">1.</span>
-        <div class="step-body">
-          <strong>Open the Steam Console</strong>
-          <p>Press <code>Win + R</code> and enter <code>steam://open/console</code> — or paste that into your browser's address bar. Either way works.</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <span class="step-num">2.</span>
-        <div class="step-body">
-          <strong>Find the Manifest on SteamDB</strong>
-          <p>Go to the <a href="https://steamdb.info/app/2027330/" target="_blank">GoreBox SteamDB page</a> and find the depot entry for the version you want. For example, <strong>V15.15</strong> has the manifest ID <code>3348281417896630206</code>.</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <span class="step-num">3.</span>
-        <div class="step-body">
-          <strong>Download via Steam Console</strong>
-          <p>In the Steam console, run this command (replace the manifest ID with the one you found):</p>
-        </div>
-      </div>
-
-      <div class="code-wrap">
-        <div class="code-header">
-          <span class="code-lang">Steam Console</span>
-          <button class="copy-btn" onclick="copyCode(this)">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            Copy
-          </button>
-        </div>
-        <pre>download_depot 2027330 2027331 3348281417896630206</pre>
-      </div>
-
-      <div class="box info">
-        <strong>What these numbers mean</strong>
-        <code>2027330</code> = GoreBox App ID &nbsp;·&nbsp; <code>2027331</code> = GoreBox Depot ID &nbsp;·&nbsp; last number = Manifest ID for your chosen version
-      </div>
-    </section>
-
-    <!-- CH3 -->
-    <section class="chapter" id="ch3">
-      <p class="chapter-eyebrow">Chapter 03</p>
-      <h2>Coding the Plugin</h2>
-      <p>Now the actual work begins. You'll write a BepInEx plugin that replaces GoreBox's default Photon and PlayFab credentials with your own.</p>
-
-      <div class="step">
-        <span class="step-num">1.</span>
-        <div class="step-body">
-          <strong>Install BepInEx on the downloaded version</strong>
-          <p>Drop the BepInEx files into your GoreBox folder, then launch the game once. Wait for BepInEx to generate its interop files — this takes a minute. Close the game after it finishes loading.</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <span class="step-num">2.</span>
-        <div class="step-body">
-          <strong>Create a new project in Visual Studio</strong>
-          <p>Create a <strong>Class Library</strong> project targeting <strong>.NET 4.7.2</strong>. Name it whatever you want. Set the build configuration to <strong>Release</strong> (not Debug) from the start.</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <span class="step-num">3.</span>
-        <div class="step-body">
-          <strong>Find VersionValidator in dnSpy</strong>
-          <p>Open <code>Assembly-CSharp.dll</code> in dnSpy (located in your GoreBox <code>GoreBox_Data/Managed</code> folder). Search for <code>VersionValidator</code>. Note which lifecycle hook it uses — it varies by version:</p>
-        </div>
-      </div>
-
-      <div class="box info">
-        <strong>Hook names vary by version</strong>
-        Older versions may use <code>Start</code> or <code>Awake</code>; newer ones often use <code>OnEnable</code> or <code>OnDisable</code>. Check dnSpy for your specific version before writing the patch.
-      </div>
-
-      <hr class="divider">
-
-      <p>Here's what's inside <code>VersionValidator</code> and why it matters:</p>
-      <p><strong>LoginResult</strong> — handles successful PlayFab logins. You'll hook this to redirect authentication to your own server. <strong>PlayFabError</strong> — handles login failures and displays ban messages. Both of these are wired differently in each GoreBox version, so always verify them in dnSpy.</p>
-
-      <hr class="divider">
-
-      <p>Below is the full plugin code. Replace <code>"YOUR_METHOD_NAME_HERE"</code> with the actual method name you found in dnSpy, and fill in your Photon App IDs and PlayFab Title ID.</p>
-
-      <div class="code-wrap">
-        <div class="code-header">
-          <span class="code-lang">C# — Main Plugin</span>
-          <button class="copy-btn" onclick="copyCode(this)">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            Copy
-          </button>
-        </div>
-        <pre><span class="kw">using</span> <span class="cls">BepInEx</span>;
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+<p class="sidebar-label">Chapters</p>
+<nav id="sidebar-nav"><!-- filled by JS --></nav>
+</aside>
+<!-- CONTENT -->
+<main class="content">
+<!-- ══════════════ V15 ══════════════ -->
+<div class="tab-content active" id="tab-v15">
+<section class="chapter" id="v15-ch1">
+<p class="chapter-eyebrow">Chapter 01</p>
+<h2>Required Software</h2>
+<p>Before you can do anything, you need three tools installed and ready. Don't skip any of them — each handles a different part of the process.</p>
+<div class="step">
+<span class="step-num">1.</span>
+<div class="step-body">
+<strong>dnSpy</strong>
+<p>Used to inspect <code>Assembly-CSharp.dll</code> — the game's compiled code. This lets you find method names like <code>VersionValidator</code> that you'll hook. Download from the <a href="https://github.com/dnspy/dnspy" target="_blank">official GitHub page</a>.</p>
+</div>
+</div>
+<div class="step">
+<span class="step-num">2.</span>
+<div class="step-body">
+<strong>Visual Studio 2022</strong>
+<p>Used to write and compile your BepInEx plugin as a <code>.dll</code>. <strong>Do NOT confuse this with Visual Studio Code</strong> — they are completely different programs.</p>
+</div>
+</div>
+<div class="step">
+<span class="step-num">3.</span>
+<div class="step-body">
+<strong>BepInEx IL2CPP (v6+)</strong>
+<p>The mod loader that injects code into the game. GoreBox runs on IL2CPP, so you <strong>must</strong> use an IL2CPP build — the standard GitHub release won't work.</p>
+</div>
+</div>
+<div class="box warn">
+<strong>⚠ Important</strong>
+<span>Download BepInEx from <a href="https://builds.bepinex.dev/projects/bepinex_be" target="_blank">builds.bepinex.dev</a>. Always pick the <code>IL2CPP</code> build. Any version ≥ 6 works.</span>
+</div>
+</section>
+<section class="chapter" id="v15-ch2">
+<p class="chapter-eyebrow">Chapter 02</p>
+<h2>Downloading a Specific Version via SteamDB</h2>
+<p>Your private server needs to run on a specific GoreBox version. If you own the game on Steam, you can download any old depot directly through the Steam console.</p>
+<div class="step">
+<span class="step-num">1.</span>
+<div class="step-body">
+<strong>Open the Steam Console</strong>
+<p>Press <code>Win + R</code> and enter <code>steam://open/console</code> — or paste that into your browser's address bar.</p>
+</div>
+</div>
+<div class="step">
+<span class="step-num">2.</span>
+<div class="step-body">
+<strong>Find the Manifest on SteamDB</strong>
+<p>Go to the <a href="https://steamdb.info/app/2027330/" target="_blank">GoreBox SteamDB page</a> and find the depot for the version you want. For example, <strong>V15.15</strong> has manifest <code>3348281417896630206</code>.</p>
+</div>
+</div>
+<div class="step">
+<span class="step-num">3.</span>
+<div class="step-body">
+<strong>Run this in the Steam console</strong>
+<p>Replace the manifest ID with the one you found for your target version.</p>
+</div>
+</div>
+<div class="code-wrap">
+<div class="code-header"><span class="code-lang">Steam Console</span><button class="copy-btn" onclick="copyCode(this)"><svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy</button></div>
+<pre>download_depot 2027330 2027331 3348281417896630206</pre>
+</div>
+<div class="box info">
+<strong>What these numbers mean</strong>
+<code>2027330</code> = GoreBox App ID  ·  <code>2027331</code> = Depot ID  ·  <span>last number = Manifest ID for your chosen version</span>
+</div>
+</section>
+<section class="chapter" id="v15-ch3">
+<p class="chapter-eyebrow">Chapter 03</p>
+<h2>Coding the Plugin</h2>
+<p>You'll write a BepInEx plugin that replaces GoreBox's default Photon and PlayFab credentials with your own.</p>
+<div class="step">
+<span class="step-num">1.</span>
+<div class="step-body">
+<strong>Install BepInEx and generate interop files</strong>
+<p>Drop BepInEx into your GoreBox folder, launch the game once, wait for it to generate interop files, then close.</p>
+</div>
+</div>
+<div class="step">
+<span class="step-num">2.</span>
+<div class="step-body">
+<strong>Create a Class Library project in Visual Studio</strong>
+<p>Target <strong>.NET 4.7.2</strong>. Name it whatever. Set the build config to <strong>Release</strong>, not Debug.</p>
+</div>
+</div>
+<div class="step">
+<span class="step-num">3.</span>
+<div class="step-body">
+<strong>Find VersionValidator in dnSpy</strong>
+<p>Open <code>Assembly-CSharp.dll</code> from <code>GoreBox_Data/Managed</code>. Search for <code>VersionValidator</code> and note the lifecycle hook — it varies by version.</p>
+</div>
+</div>
+<div class="box info">
+<strong>Hook names vary by version</strong>
+<span>Older versions may use <code>Start</code> or <code>Awake</code>; newer ones often use <code>OnEnable</code> or <code>OnDisable</code>. Always check in dnSpy first.</span>
+</div>
+<hr class="divider"/>
+<p>Below is the full plugin. Replace <code>YOUR_METHOD_NAME_HERE</code> with what you found in dnSpy, and fill in your Photon / PlayFab credentials.</p>
+<div class="code-wrap">
+<div class="code-header"><span class="code-lang">C# — Main Plugin</span><button class="copy-btn" onclick="copyCode(this)"><svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy</button></div>
+<pre><span class="kw">using</span> <span class="cls">BepInEx</span>;
 <span class="kw">using</span> <span class="cls">BepInEx.Unity.IL2CPP</span>;
 <span class="kw">using</span> <span class="cls">HarmonyLib</span>;
 <span class="kw">using</span> <span class="cls">Photon.Pun</span>;
@@ -617,11 +311,11 @@
 
                 <span class="cls">System.Action</span>&lt;<span class="cls">LoginResult</span>&gt; onSuccess = <span class="kw">delegate</span> (<span class="cls">LoginResult</span> result)
                 {
-                    __instance.<span class="prop">LoginResult</span>(result); <span class="cmt">// Find the correct LoginResult in dnSpy</span>
+                    __instance.<span class="prop">LoginResult</span>(result); <span class="cmt">// Find correct LoginResult in dnSpy</span>
                 };
                 <span class="cls">System.Action</span>&lt;<span class="cls">PlayFabError</span>&gt; onError = <span class="kw">delegate</span> (<span class="cls">PlayFabError</span> err)
                 {
-                    __instance.<span class="prop">PlayFabError</span>(err); <span class="cmt">// Find the correct PlayFabError in dnSpy</span>
+                    __instance.<span class="prop">PlayFabError</span>(err); <span class="cmt">// Find correct PlayFabError in dnSpy</span>
                 };
 
                 <span class="cls">PlayFabClientAPI</span>.<span class="prop">LoginWithCustomID</span>(loginRequest, onSuccess, onError, <span class="kw">null</span>, <span class="kw">null</span>);
@@ -631,208 +325,614 @@
         }
     }
 }</pre>
-      </div>
-
-      <div class="box warn">
-        <strong>⚠ LoginResult / PlayFabError names differ per version</strong>
-        If multiplayer doesn't connect, look for other <code>LoginResult</code> or <code>PlayFabError</code> methods inside <code>VersionValidator</code> in dnSpy. They are renamed in almost every GoreBox update.
-      </div>
-
-      <hr class="divider">
-
-      <p>If you want to add Discord Rich Presence (like OldBox / GoreBox Reborn does), add the following to your plugin:</p>
-
-      <div class="code-wrap">
-        <div class="code-header">
-          <span class="code-lang">C# — Discord RPC (optional)</span>
-          <button class="copy-btn" onclick="copyCode(this)">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            Copy
-          </button>
-        </div>
-        <pre><span class="cmt">// Add to your using statements:</span>
-<span class="kw">using</span> <span class="cls">DiscordRPC</span>;
-<span class="kw">using</span> <span class="cls">DiscordRPC.Logging</span>;
-
-<span class="cmt">// Call this.InitDiscord() in your Load() method, then add:</span>
-<span class="kw">public void</span> <span class="prop">InitDiscord</span>()
-{
-    client = <span class="kw">new</span> <span class="cls">DiscordRpcClient</span>(<span class="str">"YOUR_DISCORD_CLIENT_ID"</span>);
-    <span class="cmt">// Create a Client ID at https://discord.com/developers/home</span>
-
-    client.<span class="prop">Logger</span> = <span class="kw">new</span> <span class="cls">ConsoleLogger</span>
-    {
-        Level = <span class="cls">LogLevel</span>.<span class="prop">Warning</span>
-    };
-    client.<span class="prop">Initialize</span>();
-    client.<span class="prop">SetPresence</span>(<span class="kw">new</span> <span class="cls">RichPresence</span>
-    {
-        Details = <span class="str">"Playing GoreBox"</span>, <span class="cmt">// Customize this</span>
-        Assets = <span class="kw">new</span> <span class="cls">Assets</span>  <span class="cmt">// Use new DiscordRPC.Assets if this errors</span>
-        {
-            LargeImageKey = <span class="str">"GoreBox"</span>,
-            LargeImageText = <span class="str">"GoreBox"</span>
-        }
-    });
-    client.<span class="prop">UpdateState</span>(<span class="str">"Online"</span>);
-}</pre>
-      </div>
-    </section>
-
-    <!-- CH4 -->
-    <section class="chapter" id="ch4">
-      <p class="chapter-eyebrow">Chapter 04</p>
-      <h2>Testing</h2>
-
-      <div class="step">
-        <span class="step-num">1.</span>
-        <div class="step-body">
-          <strong>Build the DLL</strong>
-          <p>In Visual Studio, set the configuration to <strong>Release</strong> and build the project. This produces a <code>.dll</code> file in the <code>bin/Release</code> folder of your project.</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <span class="step-num">2.</span>
-        <div class="step-body">
-          <strong>Drop it into BepInEx</strong>
-          <p>Copy your <code>.dll</code> into the <code>BepInEx/plugins</code> folder inside your GoreBox directory.</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <span class="step-num">3.</span>
-        <div class="step-body">
-          <strong>Launch the game and watch the console</strong>
-          <p>BepInEx opens a console window alongside the game. If a red error appears, something is wrong. Errors are highly specific — there is no universal fix list. Read the message carefully, check your method names in dnSpy, and verify your credentials.</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <span class="step-num">4.</span>
-        <div class="step-body">
-          <strong>Test multiplayer</strong>
-          <p>Try to join or create a multiplayer session. If you see a <code>CustomAuthenticationFailed</code> error, proceed to Chapter 5 — your PlayFab and Photon backends need to be configured.</p>
-        </div>
-      </div>
-
-      <div class="box danger">
-        <strong>CustomAuthenticationFailed?</strong>
-        This is not a code bug — it means your PlayFab project isn't configured to allow the custom ID login method. Go to Chapter 5.
-      </div>
-    </section>
-
-    <!-- CH5 -->
-    <section class="chapter" id="ch5">
-      <p class="chapter-eyebrow">Chapter 05</p>
-      <h2>PlayFab + Photon Configuration</h2>
-      <p>Both services need to be set up properly before authentication will work. Start with PlayFab, then link it to Photon.</p>
-
-      <hr class="divider">
-
-      <h3 style="font-family: var(--font-display); letter-spacing:1px; text-transform:uppercase; font-size:1.1rem; color:var(--accent); margin-bottom:16px; font-weight:400;">PlayFab Setup</h3>
-
-      <p>Create a PlayFab account at <a href="https://developer.playfab.com/en-us/r/sign-in" target="_blank">developer.playfab.com</a>, then create a new Title. Once that's done, you need to disable the default Custom ID restrictions to allow device-based login.</p>
-
-      <div class="screenshots">
-        <div class="screenshot-item">
-          <div class="screenshot-label">PlayFab — Custom ID Authentication Setting</div>
-          <img src="https://i.ibb.co/Wv6PTsGs/image-2026-06-26-174941516.png" alt="PlayFab Custom ID setting" loading="lazy">
-        </div>
-      </div>
-
-      <hr class="divider">
-
-      <h3 style="font-family: var(--font-display); letter-spacing:1px; text-transform:uppercase; font-size:1.1rem; color:var(--accent); margin-bottom:16px; font-weight:400;">Linking PlayFab to Photon</h3>
-
-      <p>Once PlayFab is configured, you need to connect it to your Photon application so that authentication tokens are accepted by the Photon relay servers.</p>
-
-      <div class="screenshots">
-        <div class="screenshot-item">
-          <div class="screenshot-label">Step 1 — Photon Dashboard</div>
-          <img src="https://i.ibb.co/1ftW89mQ/image-2026-06-26-175151824.png" alt="Photon step 1" loading="lazy">
-        </div>
-        <div class="screenshot-item">
-          <div class="screenshot-label">Step 2 — Authentication Settings</div>
-          <img src="https://i.ibb.co/nqq59cJ9/image-2026-06-26-175521925.png" alt="Photon step 2" loading="lazy">
-        </div>
-        <div class="screenshot-item">
-          <div class="screenshot-label">Step 3 — PlayFab Provider Config</div>
-          <img src="https://i.ibb.co/m5DQ7FJ0/image-2026-06-26-175622627.png" alt="Photon step 3" loading="lazy">
-        </div>
-      </div>
-
-      <hr class="divider">
-
-      <h3 style="font-family: var(--font-display); letter-spacing:1px; text-transform:uppercase; font-size:1.1rem; color:var(--accent); margin-bottom:16px; font-weight:400;">Photon App Setup</h3>
-
-      <p>Create a Photon account at <a href="https://dashboard.photonengine.com" target="_blank">dashboard.photonengine.com</a> and create a new PUN2 application. The setup there is straightforward — follow the screenshots below.</p>
-
-      <div class="screenshots">
-        <div class="screenshot-item">
-          <div class="screenshot-label">Photon — Step 1</div>
-          <img src="https://i.ibb.co/S40rS1LS/image-2026-06-26-175835518.png" alt="Photon setup 1" loading="lazy">
-        </div>
-        <div class="screenshot-item">
-          <div class="screenshot-label">Photon — Step 2</div>
-          <img src="https://i.ibb.co/Gff1brYX/image-2026-06-26-181011389.png" alt="Photon setup 2" loading="lazy">
-        </div>
-        <div class="screenshot-item">
-          <div class="screenshot-label">Photon — Step 3</div>
-          <img src="https://i.ibb.co/Z6sQBngz/image-2026-06-26-180929597.png" alt="Photon setup 3" loading="lazy">
-        </div>
-      </div>
-    </section>
-
-    <!-- CH6 -->
-    <section class="chapter" id="ch6">
-      <p class="chapter-eyebrow">Chapter 06</p>
-      <h2>You're Done</h2>
-      <p>If you've made it this far, you've successfully set up your own private GoreBox server. Your plugin replaces the official Photon and PlayFab credentials, your backends are configured, and multiplayer should be routing through your own infrastructure.</p>
-      <p>Good luck with development. There's a lot of room to build on top of this foundation — custom auth flows, modded gameplay, community tooling.</p>
-
-      <div class="cta-box">
-        <h3>Need Help?</h3>
-        <p>If something isn't working and you've exhausted the docs, you can reach out to <strong>@PihKiller</strong> on Telegram for paid setup assistance.</p>
-        <p style="font-size:12px; color: var(--muted); margin-top: 8px; margin-bottom: 20px;">50 ⭐ for full setup · 75 ⭐ with Discord RPC</p>
-        <a href="https://t.me/PihKiller" target="_blank" class="cta-link">→ @PihKiller on Telegram</a>
-      </div>
-    </section>
-
-  </main>
 </div>
+<div class="box warn">
+<strong>⚠ LoginResult / PlayFabError names differ per version</strong>
+<span>If multiplayer doesn't work, look for other <code>LoginResult</code> or <code>PlayFabError</code> methods inside <code>VersionValidator</code> in dnSpy. They get renamed in almost every update.</span>
+</div>
+</section>
+<section class="chapter" id="v15-ch4">
+<p class="chapter-eyebrow">Chapter 04</p>
+<h2>Testing</h2>
+<div class="step">
+<span class="step-num">1.</span>
+<div class="step-body">
+<strong>Build the DLL</strong>
+<p>Set config to <strong>Release</strong>, build the project. Your <code>.dll</code> ends up in <code>bin/Release</code>.</p>
+</div>
+</div>
+<div class="step">
+<span class="step-num">2.</span>
+<div class="step-body">
+<strong>Drop it into BepInEx/plugins</strong>
+<p>Copy the <code>.dll</code> into <code>BepInEx/plugins</code> inside your GoreBox directory.</p>
+</div>
+</div>
+<div class="step">
+<span class="step-num">3.</span>
+<div class="step-body">
+<strong>Launch the game and watch the console</strong>
+<p>BepInEx opens a console window. Red error = something's wrong. Read the message, check your method names in dnSpy, verify your credentials.</p>
+</div>
+</div>
+<div class="box danger">
+<strong>CustomAuthenticationFailed?</strong>
+<span>This is not a code bug — your PlayFab project isn't configured to allow Custom ID login. Go to Chapter 5.</span>
+</div>
+</section>
+<section class="chapter" id="v15-ch5">
+<p class="chapter-eyebrow">Chapter 05</p>
+<h2>PlayFab + Photon Configuration</h2>
+<h3>PlayFab Setup</h3>
+<p>Create a PlayFab account at <a href="https://developer.playfab.com/en-us/r/sign-in" target="_blank">developer.playfab.com</a>, create a Title, then disable the Custom ID restrictions to allow device-based login.</p>
+<div class="screenshots">
+<div class="screenshot-item">
+<div class="screenshot-label">PlayFab — Custom ID Auth Setting</div>
+<img alt="PlayFab Custom ID setting" loading="lazy" src="https://i.ibb.co/Wv6PTsGs/image-2026-06-26-174941516.png"/>
+</div>
+</div>
+<hr class="divider"/>
+<h3>Linking PlayFab to Photon</h3>
+<div class="screenshots">
+<div class="screenshot-item">
+<div class="screenshot-label">Step 1 — Photon Dashboard</div>
+<img alt="Photon step 1" loading="lazy" src="https://i.ibb.co/1ftW89mQ/image-2026-06-26-175151824.png"/>
+</div>
+<div class="screenshot-item">
+<div class="screenshot-label">Step 2 — Authentication Settings</div>
+<img alt="Photon step 2" loading="lazy" src="https://i.ibb.co/nqq59cJ9/image-2026-06-26-175521925.png"/>
+</div>
+<div class="screenshot-item">
+<div class="screenshot-label">Step 3 — PlayFab Provider Config</div>
+<img alt="Photon step 3" loading="lazy" src="https://i.ibb.co/m5DQ7FJ0/image-2026-06-26-175622627.png"/>
+</div>
+</div>
+<hr class="divider"/>
+<h3>Photon App Setup</h3>
+<p>Create a Photon account at <a href="https://dashboard.photonengine.com" target="_blank">dashboard.photonengine.com</a> and create a PUN2 app.</p>
+<div class="screenshots">
+<div class="screenshot-item">
+<div class="screenshot-label">Photon — Step 1</div>
+<img alt="Photon setup 1" loading="lazy" src="https://i.ibb.co/S40rS1LS/image-2026-06-26-175835518.png"/>
+</div>
+<div class="screenshot-item">
+<div class="screenshot-label">Photon — Step 2</div>
+<img alt="Photon setup 2" loading="lazy" src="https://i.ibb.co/Gff1brYX/image-2026-06-26-181011389.png"/>
+</div>
+<div class="screenshot-item">
+<div class="screenshot-label">Photon — Step 3</div>
+<img alt="Photon setup 3" loading="lazy" src="https://i.ibb.co/Z6sQBngz/image-2026-06-26-180929597.png"/>
+</div>
+</div>
+</section>
+<section class="chapter" id="v15-ch6">
+<p class="chapter-eyebrow">Chapter 06</p>
+<h2>You're Done</h2>
+<p>If you've made it this far, your private GoreBox server is up. Your plugin redirects Photon and PlayFab to your own infrastructure. Good luck with development.</p>
+<div class="cta-box">
+<h3>Need Help?</h3>
+<p>If you're stuck, reach out to <strong>@PihKiller</strong> on Telegram for paid setup assistance.</p>
+<p style="font-size:12px;color:var(--muted);margin-top:6px;margin-bottom:18px;">50 ⭐ <span>for full setup</span></p>
+<a class="cta-link" href="https://t.me/PihKiller" target="_blank">→ @PihKiller</a>
+</div>
+</section>
+</div><!-- /tab-v15 -->
+<!-- ══════════════ V13 ══════════════ -->
+<div class="tab-content" id="tab-v13">
+<section class="chapter" id="v13-ch1">
+<p class="chapter-eyebrow">Chapter 01</p>
+<h2>Required Software</h2>
+<p>The C++ approach uses different tools compared to the C# plugin method.</p>
+<div class="step">
+<span class="step-num">1.</span>
+<div class="step-body">
+<strong>Visual Studio 2022</strong>
+<p>For compiling the C++ DLL. Again, <strong>NOT</strong> Visual Studio Code.</p>
+</div>
+</div>
+<div class="step">
+<span class="step-num">2.</span>
+<div class="step-body">
+<strong>IL2CPPDumper</strong>
+<p>Used to dump the game's IL2CPP metadata and get function offsets. Download from <a href="https://github.com/perfare/il2cppdumper" target="_blank">GitHub</a>.</p>
+</div>
+</div>
+<div class="box info">
+<strong>No BepInEx needed</strong>
+<span>The C++ method uses a <code>version.dll</code> proxy — no mod loader required. The DLL goes directly into the game root.</span>
+</div>
+</section>
+<section class="chapter" id="v13-ch2">
+<p class="chapter-eyebrow">Chapter 02</p>
+<h2>Coding the DLL</h2>
+<p>Create a <strong>Dynamic-Link Library (DLL)</strong> project in Visual Studio. Name it anything — then install the <strong>MinHook</strong> library into your project via NuGet or manually.</p>
+<p>The code below hooks <code>PhotonNetwork.ConnectUsingSettings</code> to replace the Photon App IDs at runtime. Fill in your own App IDs and the correct offset from IL2CPPDumper.</p>
+<div class="code-wrap">
+<div class="code-header"><span class="code-lang">C++ — V13 version.dll</span><button class="copy-btn" onclick="copyCode(this)"><svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy</button></div>
+<pre>
+<span class="pp">#include</span> <span class="str">&lt;cstdio&gt;</span>
+<span class="pp">#include</span> <span class="str">&lt;string&gt;</span>
+<span class="pp">#include</span> <span class="str">&lt;iostream&gt;</span>
+<span class="pp">#include</span> <span class="str">&lt;windows.h&gt;</span>
+<span class="pp">#include</span> <span class="str">"Minhook.h"</span>
 
+<span class="pp">#pragma comment</span>(linker, <span class="str">"/NODEFAULTLIB:LIBCMT"</span>)
+
+<span class="pp">#define</span> PROXY_OUT(func) __pragma(comment(linker, <span class="str">"/export:"</span> #func <span class="str">"=My"</span> #func))
+PROXY_OUT(GetFileVersionInfoA) PROXY_OUT(GetFileVersionInfoByHandle) PROXY_OUT(GetFileVersionInfoExA)
+PROXY_OUT(GetFileVersionInfoExW) PROXY_OUT(GetFileVersionInfoSizeA) PROXY_OUT(GetFileVersionInfoSizeExA)
+PROXY_OUT(GetFileVersionInfoSizeExW) PROXY_OUT(GetFileVersionInfoSizeW) PROXY_OUT(GetFileVersionInfoW)
+PROXY_OUT(VerFindFileA) PROXY_OUT(VerFindFileW) PROXY_OUT(VerInstallFileA) PROXY_OUT(VerInstallFileW)
+PROXY_OUT(VerLanguageNameA) PROXY_OUT(VerLanguageNameW) PROXY_OUT(VerQueryValueA) PROXY_OUT(VerQueryValueW)
+
+BOOL(WINAPI* o_GetFileVersionInfoA)(LPCSTR, DWORD, DWORD, LPVOID) = nullptr;
+BOOL(WINAPI* o_GetFileVersionInfoByHandle)(DWORD, HANDLE, LPVOID, DWORD) = nullptr;
+BOOL(WINAPI* o_GetFileVersionInfoExA)(DWORD, LPCSTR, DWORD, DWORD, LPVOID) = nullptr;
+BOOL(WINAPI* o_GetFileVersionInfoExW)(DWORD, LPCWSTR, DWORD, DWORD, LPVOID) = nullptr;
+DWORD(WINAPI* o_GetFileVersionInfoSizeA)(LPCSTR, LPDWORD) = nullptr;
+DWORD(WINAPI* o_GetFileVersionInfoSizeExA)(DWORD, LPCSTR, LPDWORD) = nullptr;
+DWORD(WINAPI* o_GetFileVersionInfoSizeExW)(DWORD, LPCWSTR, LPDWORD) = nullptr;
+DWORD(WINAPI* o_GetFileVersionInfoSizeW)(LPCWSTR, LPDWORD) = nullptr;
+BOOL(WINAPI* o_GetFileVersionInfoW)(LPCWSTR, DWORD, DWORD, LPVOID) = nullptr;
+DWORD(WINAPI* o_VerFindFileA)(DWORD, LPCSTR, LPCSTR, LPCSTR, LPSTR, PUINT, LPSTR, PUINT) = nullptr;
+DWORD(WINAPI* o_VerFindFileW)(DWORD, LPCWSTR, LPCWSTR, LPCWSTR, LPWSTR, PUINT, LPWSTR, PUINT) = nullptr;
+DWORD(WINAPI* o_VerInstallFileA)(DWORD, LPCSTR, LPCSTR, LPCSTR, LPCSTR, LPCSTR, LPSTR, PUINT) = nullptr;
+DWORD(WINAPI* o_VerInstallFileW)(DWORD, LPCWSTR, LPCWSTR, LPCWSTR, LPCWSTR, LPCWSTR, LPSTR, PUINT) = nullptr;
+DWORD(WINAPI* o_VerLanguageNameA)(DWORD, LPSTR, DWORD) = nullptr;
+DWORD(WINAPI* o_VerLanguageNameW)(DWORD, LPWSTR, DWORD) = nullptr;
+BOOL(WINAPI* o_VerQueryValueA)(LPCVOID, LPCSTR, LPVOID*, PUINT) = nullptr;
+BOOL(WINAPI* o_VerQueryValueW)(LPCVOID, LPCWSTR, LPVOID*, PUINT) = nullptr;
+
+extern <span class="str">"C"</span> {
+    BOOL WINAPI MyGetFileVersionInfoA(LPCSTR l, DWORD d1, DWORD d2, LPVOID p) { return o_GetFileVersionInfoA ? o_GetFileVersionInfoA(l, d1, d2, p) : FALSE; }
+    BOOL WINAPI MyGetFileVersionInfoByHandle(DWORD d1, HANDLE h, LPVOID p, DWORD d2) { return o_GetFileVersionInfoByHandle ? o_GetFileVersionInfoByHandle(d1, h, p, d2) : FALSE; }
+    BOOL WINAPI MyGetFileVersionInfoExA(DWORD d1, LPCSTR l, DWORD d2, DWORD d3, LPVOID p) { return o_GetFileVersionInfoExA ? o_GetFileVersionInfoExA(d1, l, d2, d3, p) : FALSE; }
+    BOOL WINAPI MyGetFileVersionInfoExW(DWORD d1, LPCWSTR l, DWORD d2, DWORD d3, LPVOID p) { return o_GetFileVersionInfoExW ? o_GetFileVersionInfoExW(d1, l, d2, d3, p) : FALSE; }
+    DWORD WINAPI MyGetFileVersionInfoSizeA(LPCSTR l, LPDWORD p) { return o_GetFileVersionInfoSizeA ? o_GetFileVersionInfoSizeA(l, p) : 0; }
+    DWORD WINAPI MyGetFileVersionInfoSizeExA(DWORD d, LPCSTR l, LPDWORD p) { return o_GetFileVersionInfoSizeExA ? o_GetFileVersionInfoSizeExA(d, l, p) : 0; }
+    DWORD WINAPI MyGetFileVersionInfoSizeExW(DWORD d, LPCWSTR l, LPDWORD p) { return o_GetFileVersionInfoSizeExW ? o_GetFileVersionInfoSizeExW(d, l, p) : 0; }
+    DWORD WINAPI MyGetFileVersionInfoSizeW(LPCWSTR l, LPDWORD p) { return o_GetFileVersionInfoSizeW ? o_GetFileVersionInfoSizeW(l, p) : 0; }
+    BOOL WINAPI MyGetFileVersionInfoW(LPCWSTR l, DWORD d1, DWORD d2, LPVOID p) { return o_GetFileVersionInfoW ? o_GetFileVersionInfoW(l, d1, d2, p) : FALSE; }
+    DWORD WINAPI MyVerFindFileA(DWORD d, LPCSTR l1, LPCSTR l2, LPCSTR l3, LPSTR l4, PUINT p1, LPSTR l5, PUINT p2) { return o_VerFindFileA ? o_VerFindFileA(d, l1, l2, l3, l4, p1, l5, p2) : 0; }
+    DWORD WINAPI MyVerFindFileW(DWORD d, LPCWSTR l1, LPCWSTR l2, LPCWSTR l3, LPWSTR l4, PUINT p1, LPWSTR l5, PUINT p2) { return o_VerFindFileW ? o_VerFindFileW(d, l1, l2, l3, l4, p1, l5, p2) : 0; }
+    DWORD WINAPI MyVerInstallFileA(DWORD d, LPCSTR l1, LPCSTR l2, LPCSTR l3, LPCSTR l4, LPCSTR l5, LPSTR l6, PUINT p) { return o_VerInstallFileA ? o_VerInstallFileA(d, l1, l2, l3, l4, l5, l6, p) : 0; }
+    DWORD WINAPI MyVerInstallFileW(DWORD d, LPCWSTR l1, LPCWSTR l2, LPCWSTR l3, LPCWSTR l4, LPCWSTR l5, LPSTR l6, PUINT p) { return o_VerInstallFileW ? o_VerInstallFileW(d, l1, l2, l3, l4, l5, l6, p) : 0; }
+    DWORD WINAPI MyVerLanguageNameA(DWORD d, LPSTR l, DWORD d2) { return o_VerLanguageNameA ? o_VerLanguageNameA(d, l, d2) : 0; }
+    DWORD WINAPI MyVerLanguageNameW(DWORD d, LPWSTR l, DWORD d2) { return o_VerLanguageNameW ? o_VerLanguageNameW(d, l, d2) : 0; }
+    BOOL WINAPI MyVerQueryValueA(LPCVOID p, LPCSTR l, LPVOID* lp, PUINT pu) { return o_VerQueryValueA ? o_VerQueryValueA(p, l, lp, pu) : FALSE; }
+    BOOL WINAPI MyVerQueryValueW(LPCVOID p, LPCWSTR l, LPVOID* lp, PUINT pu) { return o_VerQueryValueW ? o_VerQueryValueW(p, l, lp, pu) : FALSE; }
+}
+
+<span class="kw">void</span> SetupProxy() {
+    <span class="kw">char</span> sysPath[MAX_PATH];
+    GetSystemDirectoryA(sysPath, MAX_PATH);
+    HMODULE hReal = LoadLibraryA((std::string(sysPath) + <span class="str">"\\version.dll"</span>).c_str());
+    <span class="kw">if</span> (!hReal) return;
+
+    o_GetFileVersionInfoA    = (decltype(o_GetFileVersionInfoA))   GetProcAddress(hReal, <span class="str">"GetFileVersionInfoA"</span>);
+    o_GetFileVersionInfoByHandle = (decltype(o_GetFileVersionInfoByHandle))GetProcAddress(hReal, <span class="str">"GetFileVersionInfoByHandle"</span>);
+    o_GetFileVersionInfoExA  = (decltype(o_GetFileVersionInfoExA)) GetProcAddress(hReal, <span class="str">"GetFileVersionInfoExA"</span>);
+    o_GetFileVersionInfoExW  = (decltype(o_GetFileVersionInfoExW)) GetProcAddress(hReal, <span class="str">"GetFileVersionInfoExW"</span>);
+    o_GetFileVersionInfoSizeA   = (decltype(o_GetFileVersionInfoSizeA))  GetProcAddress(hReal, <span class="str">"GetFileVersionInfoSizeA"</span>);
+    o_GetFileVersionInfoSizeExA = (decltype(o_GetFileVersionInfoSizeExA))GetProcAddress(hReal, <span class="str">"GetFileVersionInfoSizeExA"</span>);
+    o_GetFileVersionInfoSizeExW = (decltype(o_GetFileVersionInfoSizeExW))GetProcAddress(hReal, <span class="str">"GetFileVersionInfoSizeExW"</span>);
+    o_GetFileVersionInfoSizeW   = (decltype(o_GetFileVersionInfoSizeW))  GetProcAddress(hReal, <span class="str">"GetFileVersionInfoSizeW"</span>);
+    o_GetFileVersionInfoW    = (decltype(o_GetFileVersionInfoW))   GetProcAddress(hReal, <span class="str">"GetFileVersionInfoW"</span>);
+    o_VerFindFileA    = (decltype(o_VerFindFileA))   GetProcAddress(hReal, <span class="str">"VerFindFileA"</span>);
+    o_VerFindFileW    = (decltype(o_VerFindFileW))   GetProcAddress(hReal, <span class="str">"VerFindFileW"</span>);
+    o_VerInstallFileA = (decltype(o_VerInstallFileA))GetProcAddress(hReal, <span class="str">"VerInstallFileA"</span>);
+    o_VerInstallFileW = (decltype(o_VerInstallFileW))GetProcAddress(hReal, <span class="str">"VerInstallFileW"</span>);
+    o_VerLanguageNameA = (decltype(o_VerLanguageNameA))GetProcAddress(hReal, <span class="str">"VerLanguageNameA"</span>);
+    o_VerLanguageNameW = (decltype(o_VerLanguageNameW))GetProcAddress(hReal, <span class="str">"VerLanguageNameW"</span>);
+    o_VerQueryValueA  = (decltype(o_VerQueryValueA)) GetProcAddress(hReal, <span class="str">"VerQueryValueA"</span>);
+    o_VerQueryValueW  = (decltype(o_VerQueryValueW)) GetProcAddress(hReal, <span class="str">"VerQueryValueW"</span>);
+}
+
+uintptr_t GameAssembly = 0;
+uintptr_t offset_ConnectUsingSettings = 0x0; <span class="cmt">// Photon.Pun.PhotonNetwork$$ConnectUsingSettings — get from IL2CPPDumper</span>
+
+<span class="kw">struct</span> <span class="cls">Il2CppString</span> { <span class="kw">void</span>* k; <span class="kw">void</span>* m; int32_t len; wchar_t chars[1]; };
+
+<span class="kw">using</span> il2cpp_string_new_t = <span class="cls">Il2CppString</span>* (*)(<span class="kw">const char</span>*);
+il2cpp_string_new_t il2cpp_string_new = nullptr;
+
+<span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;
+<span class="kw">void</span> WriteMem(uintptr_t addr, T val) {
+    DWORD old;
+    VirtualProtect((LPVOID)addr, <span class="kw">sizeof</span>(T), PAGE_EXECUTE_READWRITE, &amp;old);
+    *(T*)addr = val;
+    VirtualProtect((LPVOID)addr, <span class="kw">sizeof</span>(T), old, &amp;old);
+}
+
+<span class="kw">using</span> o_photon_hook_t = <span class="kw">void</span>(*)(<span class="kw">void</span>*, <span class="kw">bool</span>, <span class="kw">void</span>*);
+o_photon_hook_t o_photon_hook = nullptr;
+
+<span class="kw">void</span> photon_hook(<span class="kw">void</span>* _appSettings, <span class="kw">bool</span> startInOfflineMode, <span class="kw">void</span>* mi) {
+    <span class="kw">if</span> (_appSettings &amp;&amp; il2cpp_string_new != nullptr) {
+        WriteMem((uintptr_t)_appSettings + 0x10, il2cpp_string_new(<span class="str">""</span>)); <span class="cmt">// PUN2 App ID — put yours here</span>
+        WriteMem((uintptr_t)_appSettings + 0x28, il2cpp_string_new(<span class="str">""</span>)); <span class="cmt">// Voice App ID — put yours here</span>
+    }
+    <span class="kw">return</span> o_photon_hook(_appSettings, startInOfflineMode, mi);
+}
+
+<span class="kw">void</span> Main() {
+    <span class="kw">while</span> (!(GameAssembly = (uintptr_t)GetModuleHandleA(<span class="str">"GameAssembly.dll"</span>))) {
+        Sleep(200);
+    }
+
+    HMODULE hGA = (HMODULE)GameAssembly;
+    il2cpp_string_new = (il2cpp_string_new_t)GetProcAddress(hGA, <span class="str">"il2cpp_string_new"</span>);
+
+    MH_Initialize();
+
+    uintptr_t targetAddr = GameAssembly + offset_ConnectUsingSettings;
+    <span class="kw">if</span> (MH_CreateHook((LPVOID)targetAddr, (LPVOID)&amp;photon_hook, (LPVOID*)&amp;o_photon_hook) == MH_OK) {
+        MH_EnableHook((LPVOID)targetAddr);
+    }
+}
+
+BOOL APIENTRY DllMain(HMODULE hMod, DWORD reason, LPVOID lpRes) {
+    <span class="kw">if</span> (reason == DLL_PROCESS_ATTACH) {
+        DisableThreadLibraryCalls(hMod);
+        SetupProxy();
+        CreateThread(0, 0, (LPTHREAD_START_ROUTINE)Main, 0, 0, 0);
+    }
+    <span class="kw">return</span> TRUE;
+}</pre>
+</div>
+<div class="box warn">
+<strong>⚠ Fill in the offsets!</strong>
+<span>The <code>offset_ConnectUsingSettings</code> value must be obtained from IL2CPPDumper on your specific V13 build. Leave it as <code>0x0</code> and the hook will crash.</span>
+</div>
+</section>
+<section class="chapter" id="v13-ch3">
+<p class="chapter-eyebrow">Chapter 03</p>
+<h2>Photon Setup</h2>
+<p>For V13 you don't need to configure Photon the same way as V15. Just create the Photon apps referenced in the script — grab your App IDs from <a href="https://dashboard.photonengine.com" target="_blank">dashboard.photonengine.com</a> and paste them into the hook.</p>
+</section>
+<section class="chapter" id="v13-ch4">
+<p class="chapter-eyebrow">Chapter 04</p>
+<h2>Testing</h2>
+<div class="step">
+<span class="step-num">1.</span>
+<div class="step-body">
+<strong>Build → Version.dll</strong>
+<p>Build the project. The output must be named <code>version.dll</code> — this is the proxy DLL Windows loads instead of the real one.</p>
+</div>
+</div>
+<div class="step">
+<span class="step-num">2.</span>
+<div class="step-body">
+<strong>Drop version.dll into the game root</strong>
+<p>Unlike BepInEx plugins, this goes into the <strong>root folder</strong> of GoreBox — same folder as <code>GoreBox.exe</code>.</p>
+</div>
+</div>
+<div class="step">
+<span class="step-num">3.</span>
+<div class="step-body">
+<strong>Launch and enjoy</strong>
+<p>Launch the game. If multiplayer connects — you're done. If not, double-check your offsets and App IDs.</p>
+</div>
+</div>
+</section>
+<section class="chapter" id="v13-ch5">
+<p class="chapter-eyebrow">Done</p>
+<h2>You're Done</h2>
+<p>That's it for V13. The C++ approach is lower-level but simpler to deploy — no mod loader, just a proxy DLL in the game folder.</p>
+<div class="cta-box">
+<h3>Need Help?</h3>
+<p>If you're stuck, reach out to <strong>@PihKiller</strong> on Telegram for paid setup assistance.</p>
+<p style="font-size:12px;color:var(--muted);margin-top:6px;margin-bottom:18px;">50 ⭐ <span>for full setup</span></p>
+<a class="cta-link" href="https://t.me/PihKiller" target="_blank">→ @PihKiller</a>
+</div>
+</section>
+</div><!-- /tab-v13 -->
+<!-- ══════════════ V14 ══════════════ -->
+<div class="tab-content" id="tab-v14">
+<section class="chapter" id="v14-ch1">
+<p class="chapter-eyebrow">Chapter 01</p>
+<h2>Required Software</h2>
+<p>Same tools as V13 — Visual Studio 2022 and IL2CPPDumper. The V14 code additionally hooks <code>SteamDetection</code> to bypass the Steam ownership check.</p>
+<div class="step">
+<span class="step-num">1.</span>
+<div class="step-body">
+<strong>Visual Studio 2022</strong>
+<p>For compiling the C++ DLL. Not Visual Studio Code.</p>
+</div>
+</div>
+<div class="step">
+<span class="step-num">2.</span>
+<div class="step-body">
+<strong>IL2CPPDumper</strong>
+<p>To get offsets for <code>ConnectUsingSettings</code> and <code>SteamDetection.Awake</code>. Download from <a href="https://github.com/perfare/il2cppdumper" target="_blank">GitHub</a>.</p>
+</div>
+</div>
+</section>
+<section class="chapter" id="v14-ch2">
+<p class="chapter-eyebrow">Chapter 02</p>
+<h2>Coding the DLL</h2>
+<p>V14 is the same structure as V13 but adds a second hook — <code>SteamDetection.Awake</code> — which is nulled out to skip the Steam check. Fill in both offsets from IL2CPPDumper.</p>
+<div class="code-wrap">
+<div class="code-header"><span class="code-lang">C++ — V14 version.dll</span><button class="copy-btn" onclick="copyCode(this)"><svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="12"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy</button></div>
+<pre>
+<span class="pp">#include</span> <span class="str">&lt;cstdio&gt;</span>
+<span class="pp">#include</span> <span class="str">&lt;string&gt;</span>
+<span class="pp">#include</span> <span class="str">&lt;iostream&gt;</span>
+<span class="pp">#include</span> <span class="str">&lt;windows.h&gt;</span>
+<span class="pp">#include</span> <span class="str">"Minhook.h"</span>
+
+<span class="pp">#pragma comment</span>(linker, <span class="str">"/NODEFAULTLIB:LIBCMT"</span>)
+
+<span class="pp">#define</span> PROXY_OUT(func) __pragma(comment(linker, <span class="str">"/export:"</span> #func <span class="str">"=My"</span> #func))
+PROXY_OUT(GetFileVersionInfoA) PROXY_OUT(GetFileVersionInfoByHandle) PROXY_OUT(GetFileVersionInfoExA)
+PROXY_OUT(GetFileVersionInfoExW) PROXY_OUT(GetFileVersionInfoSizeA) PROXY_OUT(GetFileVersionInfoSizeExA)
+PROXY_OUT(GetFileVersionInfoSizeExW) PROXY_OUT(GetFileVersionInfoSizeW) PROXY_OUT(GetFileVersionInfoW)
+PROXY_OUT(VerFindFileA) PROXY_OUT(VerFindFileW) PROXY_OUT(VerInstallFileA) PROXY_OUT(VerInstallFileW)
+PROXY_OUT(VerLanguageNameA) PROXY_OUT(VerLanguageNameW) PROXY_OUT(VerQueryValueA) PROXY_OUT(VerQueryValueW)
+
+BOOL(WINAPI* o_GetFileVersionInfoA)(LPCSTR, DWORD, DWORD, LPVOID) = nullptr;
+BOOL(WINAPI* o_GetFileVersionInfoByHandle)(DWORD, HANDLE, LPVOID, DWORD) = nullptr;
+BOOL(WINAPI* o_GetFileVersionInfoExA)(DWORD, LPCSTR, DWORD, DWORD, LPVOID) = nullptr;
+BOOL(WINAPI* o_GetFileVersionInfoExW)(DWORD, LPCWSTR, DWORD, DWORD, LPVOID) = nullptr;
+DWORD(WINAPI* o_GetFileVersionInfoSizeA)(LPCSTR, LPDWORD) = nullptr;
+DWORD(WINAPI* o_GetFileVersionInfoSizeExA)(DWORD, LPCSTR, LPDWORD) = nullptr;
+DWORD(WINAPI* o_GetFileVersionInfoSizeExW)(DWORD, LPCWSTR, LPDWORD) = nullptr;
+DWORD(WINAPI* o_GetFileVersionInfoSizeW)(LPCWSTR, LPDWORD) = nullptr;
+BOOL(WINAPI* o_GetFileVersionInfoW)(LPCWSTR, DWORD, DWORD, LPVOID) = nullptr;
+DWORD(WINAPI* o_VerFindFileA)(DWORD, LPCSTR, LPCSTR, LPCSTR, LPSTR, PUINT, LPSTR, PUINT) = nullptr;
+DWORD(WINAPI* o_VerFindFileW)(DWORD, LPCWSTR, LPCWSTR, LPCWSTR, LPWSTR, PUINT, LPWSTR, PUINT) = nullptr;
+DWORD(WINAPI* o_VerInstallFileA)(DWORD, LPCSTR, LPCSTR, LPCSTR, LPCSTR, LPCSTR, LPSTR, PUINT) = nullptr;
+DWORD(WINAPI* o_VerInstallFileW)(DWORD, LPCWSTR, LPCWSTR, LPCWSTR, LPCWSTR, LPCWSTR, LPSTR, PUINT) = nullptr;
+DWORD(WINAPI* o_VerLanguageNameA)(DWORD, LPSTR, DWORD) = nullptr;
+DWORD(WINAPI* o_VerLanguageNameW)(DWORD, LPWSTR, DWORD) = nullptr;
+BOOL(WINAPI* o_VerQueryValueA)(LPCVOID, LPCSTR, LPVOID*, PUINT) = nullptr;
+BOOL(WINAPI* o_VerQueryValueW)(LPCVOID, LPCWSTR, LPVOID*, PUINT) = nullptr;
+
+extern <span class="str">"C"</span> {
+    BOOL WINAPI MyGetFileVersionInfoA(LPCSTR l, DWORD d1, DWORD d2, LPVOID p) { return o_GetFileVersionInfoA ? o_GetFileVersionInfoA(l, d1, d2, p) : FALSE; }
+    BOOL WINAPI MyGetFileVersionInfoByHandle(DWORD d1, HANDLE h, LPVOID p, DWORD d2) { return o_GetFileVersionInfoByHandle ? o_GetFileVersionInfoByHandle(d1, h, p, d2) : FALSE; }
+    BOOL WINAPI MyGetFileVersionInfoExA(DWORD d1, LPCSTR l, DWORD d2, DWORD d3, LPVOID p) { return o_GetFileVersionInfoExA ? o_GetFileVersionInfoExA(d1, l, d2, d3, p) : FALSE; }
+    BOOL WINAPI MyGetFileVersionInfoExW(DWORD d1, LPCWSTR l, DWORD d2, DWORD d3, LPVOID p) { return o_GetFileVersionInfoExW ? o_GetFileVersionInfoExW(d1, l, d2, d3, p) : FALSE; }
+    DWORD WINAPI MyGetFileVersionInfoSizeA(LPCSTR l, LPDWORD p) { return o_GetFileVersionInfoSizeA ? o_GetFileVersionInfoSizeA(l, p) : 0; }
+    DWORD WINAPI MyGetFileVersionInfoSizeExA(DWORD d, LPCSTR l, LPDWORD p) { return o_GetFileVersionInfoSizeExA ? o_GetFileVersionInfoSizeExA(d, l, p) : 0; }
+    DWORD WINAPI MyGetFileVersionInfoSizeExW(DWORD d, LPCWSTR l, LPDWORD p) { return o_GetFileVersionInfoSizeExW ? o_GetFileVersionInfoSizeExW(d, l, p) : 0; }
+    DWORD WINAPI MyGetFileVersionInfoSizeW(LPCWSTR l, LPDWORD p) { return o_GetFileVersionInfoSizeW ? o_GetFileVersionInfoSizeW(l, p) : 0; }
+    BOOL WINAPI MyGetFileVersionInfoW(LPCWSTR l, DWORD d1, DWORD d2, LPVOID p) { return o_GetFileVersionInfoW ? o_GetFileVersionInfoW(l, d1, d2, p) : FALSE; }
+    DWORD WINAPI MyVerFindFileA(DWORD d, LPCSTR l1, LPCSTR l2, LPCSTR l3, LPSTR l4, PUINT p1, LPSTR l5, PUINT p2) { return o_VerFindFileA ? o_VerFindFileA(d, l1, l2, l3, l4, p1, l5, p2) : 0; }
+    DWORD WINAPI MyVerFindFileW(DWORD d, LPCWSTR l1, LPCWSTR l2, LPCWSTR l3, LPWSTR l4, PUINT p1, LPWSTR l5, PUINT p2) { return o_VerFindFileW ? o_VerFindFileW(d, l1, l2, l3, l4, p1, l5, p2) : 0; }
+    DWORD WINAPI MyVerInstallFileA(DWORD d, LPCSTR l1, LPCSTR l2, LPCSTR l3, LPCSTR l4, LPCSTR l5, LPSTR l6, PUINT p) { return o_VerInstallFileA ? o_VerInstallFileA(d, l1, l2, l3, l4, l5, l6, p) : 0; }
+    DWORD WINAPI MyVerInstallFileW(DWORD d, LPCWSTR l1, LPCWSTR l2, LPCWSTR l3, LPCWSTR l4, LPCWSTR l5, LPSTR l6, PUINT p) { return o_VerInstallFileW ? o_VerInstallFileW(d, l1, l2, l3, l4, l5, l6, p) : 0; }
+    DWORD WINAPI MyVerLanguageNameA(DWORD d, LPSTR l, DWORD d2) { return o_VerLanguageNameA ? o_VerLanguageNameA(d, l, d2) : 0; }
+    DWORD WINAPI MyVerLanguageNameW(DWORD d, LPWSTR l, DWORD d2) { return o_VerLanguageNameW ? o_VerLanguageNameW(d, l, d2) : 0; }
+    BOOL WINAPI MyVerQueryValueA(LPCVOID p, LPCSTR l, LPVOID* lp, PUINT pu) { return o_VerQueryValueA ? o_VerQueryValueA(p, l, lp, pu) : FALSE; }
+    BOOL WINAPI MyVerQueryValueW(LPCVOID p, LPCWSTR l, LPVOID* lp, PUINT pu) { return o_VerQueryValueW ? o_VerQueryValueW(p, l, lp, pu) : FALSE; }
+}
+
+<span class="kw">void</span> SetupProxy() {
+    <span class="kw">char</span> sysPath[MAX_PATH];
+    GetSystemDirectoryA(sysPath, MAX_PATH);
+    HMODULE hReal = LoadLibraryA((std::string(sysPath) + <span class="str">"\\version.dll"</span>).c_str());
+    <span class="kw">if</span> (!hReal) return;
+
+    o_GetFileVersionInfoA    = (decltype(o_GetFileVersionInfoA))   GetProcAddress(hReal, <span class="str">"GetFileVersionInfoA"</span>);
+    o_GetFileVersionInfoByHandle = (decltype(o_GetFileVersionInfoByHandle))GetProcAddress(hReal, <span class="str">"GetFileVersionInfoByHandle"</span>);
+    o_GetFileVersionInfoExA  = (decltype(o_GetFileVersionInfoExA)) GetProcAddress(hReal, <span class="str">"GetFileVersionInfoExA"</span>);
+    o_GetFileVersionInfoExW  = (decltype(o_GetFileVersionInfoExW)) GetProcAddress(hReal, <span class="str">"GetFileVersionInfoExW"</span>);
+    o_GetFileVersionInfoSizeA   = (decltype(o_GetFileVersionInfoSizeA))  GetProcAddress(hReal, <span class="str">"GetFileVersionInfoSizeA"</span>);
+    o_GetFileVersionInfoSizeExA = (decltype(o_GetFileVersionInfoSizeExA))GetProcAddress(hReal, <span class="str">"GetFileVersionInfoSizeExA"</span>);
+    o_GetFileVersionInfoSizeExW = (decltype(o_GetFileVersionInfoSizeExW))GetProcAddress(hReal, <span class="str">"GetFileVersionInfoSizeExW"</span>);
+    o_GetFileVersionInfoSizeW   = (decltype(o_GetFileVersionInfoSizeW))  GetProcAddress(hReal, <span class="str">"GetFileVersionInfoSizeW"</span>);
+    o_GetFileVersionInfoW    = (decltype(o_GetFileVersionInfoW))   GetProcAddress(hReal, <span class="str">"GetFileVersionInfoW"</span>);
+    o_VerFindFileA    = (decltype(o_VerFindFileA))   GetProcAddress(hReal, <span class="str">"VerFindFileA"</span>);
+    o_VerFindFileW    = (decltype(o_VerFindFileW))   GetProcAddress(hReal, <span class="str">"VerFindFileW"</span>);
+    o_VerInstallFileA = (decltype(o_VerInstallFileA))GetProcAddress(hReal, <span class="str">"VerInstallFileA"</span>);
+    o_VerInstallFileW = (decltype(o_VerInstallFileW))GetProcAddress(hReal, <span class="str">"VerInstallFileW"</span>);
+    o_VerLanguageNameA = (decltype(o_VerLanguageNameA))GetProcAddress(hReal, <span class="str">"VerLanguageNameA"</span>);
+    o_VerLanguageNameW = (decltype(o_VerLanguageNameW))GetProcAddress(hReal, <span class="str">"VerLanguageNameW"</span>);
+    o_VerQueryValueA  = (decltype(o_VerQueryValueA)) GetProcAddress(hReal, <span class="str">"VerQueryValueA"</span>);
+    o_VerQueryValueW  = (decltype(o_VerQueryValueW)) GetProcAddress(hReal, <span class="str">"VerQueryValueW"</span>);
+}
+
+uintptr_t GameAssembly = 0;
+uintptr_t offset_ConnectUsingSettings = 0x0; <span class="cmt">// Photon.Pun.PhotonNetwork$$ConnectUsingSettings — get from IL2CPPDumper</span>
+uintptr_t offset_SteamDetect_Awake   = 0x0; <span class="cmt">// SteamDetection$$Awake — get from IL2CPPDumper</span>
+
+<span class="kw">struct</span> <span class="cls">Il2CppString</span> { <span class="kw">void</span>* k; <span class="kw">void</span>* m; int32_t len; wchar_t chars[1]; };
+
+<span class="kw">using</span> il2cpp_string_new_t = <span class="cls">Il2CppString</span>* (*)(<span class="kw">const char</span>*);
+il2cpp_string_new_t il2cpp_string_new = nullptr;
+
+<span class="kw">template</span> &lt;<span class="kw">typename</span> T&gt;
+<span class="kw">void</span> WriteMem(uintptr_t addr, T val) {
+    DWORD old;
+    VirtualProtect((LPVOID)addr, <span class="kw">sizeof</span>(T), PAGE_EXECUTE_READWRITE, &amp;old);
+    *(T*)addr = val;
+    VirtualProtect((LPVOID)addr, <span class="kw">sizeof</span>(T), old, &amp;old);
+}
+
+<span class="kw">using</span> o_photon_hook_t = <span class="kw">void</span>(*)(<span class="kw">void</span>*, <span class="kw">bool</span>, <span class="kw">void</span>*);
+o_photon_hook_t o_photon_hook = nullptr;
+
+<span class="kw">void</span> photon_hook(<span class="kw">void</span>* _appSettings, <span class="kw">bool</span> startInOfflineMode, <span class="kw">void</span>* mi) {
+    <span class="kw">if</span> (_appSettings &amp;&amp; il2cpp_string_new != nullptr) {
+        WriteMem&lt;uintptr_t&gt;((uintptr_t)_appSettings + 0x10, (uintptr_t)il2cpp_string_new(<span class="str">""</span>)); <span class="cmt">// PUN2 App ID</span>
+        WriteMem&lt;uintptr_t&gt;((uintptr_t)_appSettings + 0x28, (uintptr_t)il2cpp_string_new(<span class="str">""</span>)); <span class="cmt">// Voice App ID</span>
+    }
+    <span class="kw">return</span> o_photon_hook(_appSettings, startInOfflineMode, mi);
+}
+
+<span class="kw">using</span> o_steam_hook_t = <span class="kw">void</span>(*)(<span class="kw">void</span>*, <span class="kw">void</span>*);
+o_steam_hook_t o_steam_hook = nullptr;
+
+<span class="kw">void</span>* steam_hook(<span class="kw">void</span>* __this, <span class="kw">void</span>* mi) {
+    <span class="kw">return</span> nullptr; <span class="cmt"></span>
+}
+
+<span class="kw">void</span> Main() {
+    <span class="kw">while</span> (!(GameAssembly = (uintptr_t)GetModuleHandleA(<span class="str">"GameAssembly.dll"</span>))) {
+        Sleep(200);
+    }
+
+    HMODULE hGA = (HMODULE)GameAssembly;
+    il2cpp_string_new = (il2cpp_string_new_t)GetProcAddress(hGA, <span class="str">"il2cpp_string_new"</span>);
+
+    MH_Initialize();
+
+    uintptr_t targetAddr  = GameAssembly + offset_ConnectUsingSettings;
+    uintptr_t targetAddr2 = GameAssembly + offset_SteamDetect_Awake;
+
+    <span class="kw">if</span> (MH_CreateHook((LPVOID)targetAddr, (LPVOID)&amp;photon_hook, (LPVOID*)&amp;o_photon_hook) == MH_OK) {
+        MH_EnableHook((LPVOID)targetAddr);
+    }
+    <span class="kw">if</span> (MH_CreateHook((LPVOID)targetAddr2, (LPVOID)&amp;steam_hook, (LPVOID*)&amp;o_steam_hook) == MH_OK) {
+        MH_EnableHook((LPVOID)targetAddr2);
+    }
+}
+
+BOOL APIENTRY DllMain(HMODULE hMod, DWORD reason, LPVOID lpRes) {
+    <span class="kw">if</span> (reason == DLL_PROCESS_ATTACH) {
+        DisableThreadLibraryCalls(hMod);
+        SetupProxy();
+        CreateThread(0, 0, (LPTHREAD_START_ROUTINE)Main, 0, 0, 0);
+    }
+    <span class="kw">return</span> TRUE;
+}</pre>
+</div>
+<div class="box warn">
+<strong>⚠ Two offsets needed for V14</strong>
+<span>Get both <code>offset_ConnectUsingSettings</code> and <code>offset_SteamDetect_Awake</code> from IL2CPPDumper. The SteamDetect hook is what makes V14 different from V13.</span>
+</div>
+</section>
+<section class="chapter" id="v14-ch3">
+<p class="chapter-eyebrow">Chapter 03</p>
+<h2>Photon Setup</h2>
+<p>Same as V13 — no complex backend configuration needed. Create your Photon PUN2 app at <a href="https://dashboard.photonengine.com" target="_blank">dashboard.photonengine.com</a>, grab the App IDs, paste them into the hook strings.</p>
+</section>
+<section class="chapter" id="v14-ch4">
+<p class="chapter-eyebrow">Chapter 04</p>
+<h2>Testing</h2>
+<div class="step">
+<span class="step-num">1.</span>
+<div class="step-body">
+<strong>Build → Version.dll</strong>
+<p>Build in Release mode. Output must be <code>version.dll</code>.</p>
+</div>
+</div>
+<div class="step">
+<span class="step-num">2.</span>
+<div class="step-body">
+<strong>Drop into game root</strong>
+<p>Same as V13 — place <code>version.dll</code> in the same folder as <code>GoreBox.exe</code>.</p>
+</div>
+</div>
+<div class="step">
+<span class="step-num">3.</span>
+<div class="step-body">
+<strong>Launch and enjoy</strong>
+<p>Launch the game. If it loads multiplayer without Steam errors, you're in.</p>
+</div>
+</div>
+</section>
+<section class="chapter" id="v14-ch5">
+<p class="chapter-eyebrow">Done</p>
+<h2>You're Done</h2>
+<p>That's V14. The extra <code>SteamDetection</code> hook is what sets it apart from V13 — everything else is the same C++ proxy DLL approach.</p>
+<div class="cta-box">
+<h3>Need Help?</h3>
+<p>If you're stuck, reach out to <strong>@PihKiller</strong> on Telegram for paid setup assistance.</p>
+<p style="font-size:12px;color:var(--muted);margin-top:6px;margin-bottom:18px;">50 ⭐ <span>for full setup</span></p>
+<a class="cta-link" href="https://t.me/PihKiller" target="_blank">→ @PihKiller</a>
+</div>
+</section>
+</div><!-- /tab-v14 -->
+</main>
+</div><!-- /layout -->
 <script>
-  // Copy button logic
-  function copyCode(btn) {
-    const pre = btn.closest('.code-wrap').querySelector('pre');
-    const text = pre.innerText;
-    navigator.clipboard.writeText(text).then(() => {
-      btn.classList.add('copied');
-      btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copied!`;
-      setTimeout(() => {
-        btn.classList.remove('copied');
-        btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2v1"/></svg> Copy`;
-      }, 2000);
-    });
-  }
+// ── VERSION TABS ──
+const sidebarData = {
+  v15: [
+    {id:'v15-ch1', en:'Required Software'},
+    {id:'v15-ch2', en:'Downloading a Version'},
+    {id:'v15-ch3', en:'Coding the Plugin'},
+    {id:'v15-ch4', en:'Testing'},
+    {id:'v15-ch5', en:'PlayFab + Photon'},
+    {id:'v15-ch6', en:'Done'},
+  ],
+  v13: [
+    {id:'v13-ch1', en:'Required Software'},
+    {id:'v13-ch2', en:'Coding the DLL'},
+    {id:'v13-ch3', en:'Photon Setup'},
+    {id:'v13-ch4', en:'Testing'},
+    {id:'v13-ch5', en:'Done'},
+  ],
+  v14: [
+    {id:'v14-ch1', en:'Required Software'},
+    {id:'v14-ch2', en:'Coding the DLL'},
+    {id:'v14-ch3', en:'Photon Setup'},
+    {id:'v14-ch4', en:'Testing'},
+    {id:'v14-ch5', en:'Done'},
+  ],
+};
 
-  // Active sidebar link on scroll
-  const sections = document.querySelectorAll('.chapter');
+let currentVersion = 'v15';
+
+function switchVersion(ver) {
+  currentVersion = ver;
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + ver).classList.add('active');
+  document.querySelectorAll('.vtab').forEach(b => b.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  rebuildSidebar();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function rebuildSidebar() {
+  const nav = document.getElementById('sidebar-nav');
+  const items = sidebarData[currentVersion];
+  nav.innerHTML = items.map((item, i) => `
+    <a href="#${item.id}">
+      <span class="num">${String(i+1).padStart(2,'0')}</span>
+      <span data-en="${item.en}" data-ru="${item.ru}">${item.en}</span>
+    </a>
+  `).join('');
+  setupSidebarObserver();
+}
+
+function setupSidebarObserver() {
   const links = document.querySelectorAll('.sidebar nav a');
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
+  const tab = document.querySelector('.tab-content.active');
+  if (!tab) return;
+  const sections = tab.querySelectorAll('.chapter');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
         links.forEach(l => l.classList.remove('active'));
-        const id = entry.target.id;
+        const id = e.target.id;
         const active = document.querySelector(`.sidebar nav a[href="#${id}"]`);
         if (active) active.classList.add('active');
       }
     });
-  }, { rootMargin: '-20% 0px -60% 0px' });
+  }, {rootMargin: '-15% 0px -65% 0px'});
+  sections.forEach(s => obs.observe(s));
+}
 
-  sections.forEach(s => observer.observe(s));
+
+
+// ── COPY BUTTON ──
+function copyCode(btn) {
+  const pre = btn.closest('.code-wrap').querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(() => {
+    btn.classList.add('copied');
+    btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copied!`;
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy`;
+    }, 2000);
+  });
+}
+
+// ── INIT ──
+rebuildSidebar();
 </script>
 </body>
 </html>
