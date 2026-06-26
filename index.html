@@ -5,6 +5,16 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>GoreBox Private Server — Tutorial</title>
+<meta name="description" content="A beginner's guide to setting up your own private GoreBox server — tools, version downloading, coding, and backend configuration."/>
+<meta property="og:title" content="GoreBox Private Server — Tutorial"/>
+<meta property="og:description" content="Step-by-step guide: BepInEx IL2CPP plugin, Photon PUN2 &amp; PlayFab setup, depot downloading. Covers V15, V14, V13."/>
+<meta property="og:type" content="website"/>
+<meta property="og:image" content="https://i.ibb.co/Wv6PTsGs/image-2026-06-26-174941516.png"/>
+<meta property="og:site_name" content="GoreBox Private Server Tutorial"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="GoreBox Private Server — Tutorial"/>
+<meta name="twitter:description" content="Step-by-step guide: BepInEx IL2CPP plugin, Photon PUN2 &amp; PlayFab setup, depot downloading. Covers V15, V14, V13."/>
+<meta name="twitter:image" content="https://i.ibb.co/Wv6PTsGs/image-2026-06-26-174941516.png"/>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;500;600&display=swap');
 
@@ -126,14 +136,57 @@
   .cta-link{display:inline-block;font-family:var(--font-mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;border:1px solid var(--accent);padding:9px 26px;border-radius:3px;text-decoration:none;color:var(--accent);transition:all .15s;}
   .cta-link:hover{background:var(--accent);color:var(--bg);}
 
+
+  /* ── DEPOT TABLE ── */
+  .depot-table-wrap{overflow-x:auto;margin:20px 0;border:1px solid var(--border);border-radius:var(--radius);}
+  .depot-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .depot-table thead{background:var(--bg3);}
+  .depot-table th{font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:10px 16px;text-align:left;border-bottom:1px solid var(--border);}
+  .depot-table td{padding:11px 16px;border-bottom:1px solid var(--border);vertical-align:middle;}
+  .depot-table tr:last-child td{border-bottom:none;}
+  .depot-table tr:hover td{background:var(--bg2);}
+  .ver-badge{font-family:var(--font-mono);font-size:11px;letter-spacing:1px;background:var(--bg3);border:1px solid var(--border2);padding:3px 8px;border-radius:3px;color:var(--text);}
+  .ver-badge.v13{color:var(--muted);}
+  .copy-depot-btn{font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;background:none;border:1px solid var(--border2);color:var(--muted);padding:4px 12px;cursor:pointer;border-radius:3px;transition:all .15s;white-space:nowrap;}
+  .copy-depot-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .copy-depot-btn.copied{border-color:#44ff88;color:#44ff88;}
+  @media(max-width:768px){
+    .depot-table th,.depot-table td{padding:9px 10px;}
+    .depot-table td code{font-size:10px;}
+  }
+
   /* ── RESPONSIVE ── */
   @media(max-width:768px){
     .layout{grid-template-columns:1fr;}
     .sidebar{display:none;}
-    .content{padding:28px 18px 60px;}
-    .hero{padding:52px 18px 44px;}
-    .version-bar{padding:0 16px;}
-    .vtab{padding:12px 14px;font-size:12px;}
+    .content{padding:24px 16px 60px;max-width:100%;}
+    .hero{padding:40px 16px 32px;}
+    .hero h1{font-size:clamp(1.6rem,8vw,2.4rem);}
+    .hero-sub{font-size:13px;}
+    .hero-pills{gap:6px;}
+    .pill{font-size:10px;padding:3px 9px;}
+    .version-bar{padding:0 12px;}
+    .vtab{padding:10px 12px;font-size:11px;letter-spacing:1px;}
+    .vtab .badge{display:none;}
+    .chapter{margin-bottom:48px;padding-bottom:48px;}
+    .chapter h2{font-size:1.3rem;}
+    .chapter h3{font-size:.9rem;}
+    .chapter p{font-size:14px;}
+    .step{gap:10px;}
+    .step-body strong{font-size:13px;}
+    .step-body p{font-size:13px;}
+    .code-wrap{margin:14px -2px;border-radius:0;}
+    .code-wrap pre{padding:14px 12px;font-size:11.5px;}
+    .box{font-size:12.5px;padding:10px 13px;}
+    .cta-box{padding:20px 16px;}
+    .cta-box h3{font-size:1rem;}
+    .screenshots{gap:10px;}
+  }
+
+  @media(max-width:400px){
+    .vtab{padding:9px 9px;font-size:10px;}
+    .hero h1{font-size:1.5rem;}
+    .code-wrap pre{font-size:10.5px;}
   }
 </style>
 </head>
@@ -160,6 +213,7 @@
 <button class="vtab active" onclick="switchVersion('v15')">V15 <span class="badge">C#</span></button>
 <button class="vtab" onclick="switchVersion('v14')">V14 <span class="badge">C++</span></button>
 <button class="vtab" onclick="switchVersion('v13')">V13 <span class="badge">C++</span></button>
+    <button class="vtab" onclick="switchVersion('depots')">Depots <span class="badge">DB</span></button>
 </div>
 
 </div>
@@ -238,8 +292,8 @@
 <code>2027330</code> = GoreBox App ID  ·  <code>2027331</code> = Depot ID  ·  <span>last number = Manifest ID for your chosen version</span>
 </div>
 </section>
-<section class="chapter" id="v15-ch3">
-<p class="chapter-eyebrow">Chapter 03</p>
+<section class="chapter" id="v15-ch2">
+<p class="chapter-eyebrow">Chapter 02</p>
 <h2>Coding the Plugin</h2>
 <p>You'll write a BepInEx plugin that replaces GoreBox's default Photon and PlayFab credentials with your own.</p>
 <div class="step">
@@ -331,8 +385,8 @@
 <span>If multiplayer doesn't work, look for other <code>LoginResult</code> or <code>PlayFabError</code> methods inside <code>VersionValidator</code> in dnSpy. They get renamed in almost every update.</span>
 </div>
 </section>
-<section class="chapter" id="v15-ch4">
-<p class="chapter-eyebrow">Chapter 04</p>
+<section class="chapter" id="v15-ch3">
+<p class="chapter-eyebrow">Chapter 03</p>
 <h2>Testing</h2>
 <div class="step">
 <span class="step-num">1.</span>
@@ -357,11 +411,11 @@
 </div>
 <div class="box danger">
 <strong>CustomAuthenticationFailed?</strong>
-<span>This is not a code bug — your PlayFab project isn't configured to allow Custom ID login. Go to Chapter 5.</span>
+<span>This is not a code bug — your PlayFab project isn't configured to allow Custom ID login. Go to Chapter 4.</span>
 </div>
 </section>
-<section class="chapter" id="v15-ch5">
-<p class="chapter-eyebrow">Chapter 05</p>
+<section class="chapter" id="v15-ch4">
+<p class="chapter-eyebrow">Chapter 04</p>
 <h2>PlayFab + Photon Configuration</h2>
 <h3>PlayFab Setup</h3>
 <p>Create a PlayFab account at <a href="https://developer.playfab.com/en-us/r/sign-in" target="_blank">developer.playfab.com</a>, create a Title, then disable the Custom ID restrictions to allow device-based login.</p>
@@ -405,8 +459,8 @@
 </div>
 </div>
 </section>
-<section class="chapter" id="v15-ch6">
-<p class="chapter-eyebrow">Chapter 06</p>
+<section class="chapter" id="v15-ch5">
+<p class="chapter-eyebrow">Chapter 05</p>
 <h2>You're Done</h2>
 <p>If you've made it this far, your private GoreBox server is up. Your plugin redirects Photon and PlayFab to your own infrastructure. Good luck with development.</p>
 <div class="cta-box">
@@ -845,6 +899,94 @@ BOOL APIENTRY DllMain(HMODULE hMod, DWORD reason, LPVOID lpRes) {
 </div>
 </section>
 </div><!-- /tab-v14 -->
+
+    <!-- ══════════════ DEPOTS ══════════════ -->
+    <div class="tab-content" id="tab-depots">
+
+      <section class="chapter" id="dep-ch1">
+        <p class="chapter-eyebrow">Chapter 01</p>
+        <h2>How to Download a Specific Version</h2>
+        <p>GoreBox stores every past release as a Steam depot. If you own the game, you can pull any specific version straight through the Steam console — no third-party tools needed.</p>
+
+        <div class="step">
+          <span class="step-num">1.</span>
+          <div class="step-body">
+            <strong>Open the Steam Console</strong>
+            <p>Press <code>Win + R</code>, type <code>steam://open/console</code> and hit Enter — or paste it into your browser address bar.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="step-num">2.</span>
+          <div class="step-body">
+            <strong>Find your version in the table below</strong>
+            <p>Look up the GoreBox version you need in the Depot Table (Chapter 02). Copy the full <code>download_depot</code> command for it.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="step-num">3.</span>
+          <div class="step-body">
+            <strong>Paste the command into the Steam console and hit Enter</strong>
+            <p>Steam will download the depot into <code>steamapps/content/app_2027330/depot_2027331/</code>. Wait for it to finish, then copy the files wherever you need.</p>
+          </div>
+        </div>
+
+        <div class="box info">
+          <strong>What the numbers mean</strong>
+          <code>2027330</code> = GoreBox App ID &nbsp;·&nbsp; <code>2027331</code> = Depot ID &nbsp;·&nbsp; last number = Manifest ID (unique per version)
+        </div>
+
+        <div class="box warn">
+          <strong>⚠ You must own GoreBox on Steam</strong>
+          Steam will reject the command if you don't own the game. The download happens silently in the background — check the Steam Downloads tab for progress.
+        </div>
+      </section>
+
+      <section class="chapter" id="dep-ch2">
+        <p class="chapter-eyebrow">Chapter 02</p>
+        <h2>Depot Table</h2>
+        <p>All known GoreBox depots. Click <strong>Copy</strong> to grab the Steam console command for that version instantly.</p>
+
+        <div class="depot-table-wrap">
+          <table class="depot-table">
+            <thead>
+              <tr>
+                <th>Version</th>
+                <th>Manifest ID</th>
+                <th>Command</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="ver-badge">V15.15</span></td>
+                <td><code>3348281417896630206</code></td>
+                <td><button class="copy-depot-btn" onclick="copyDepot(this,'download_depot 2027330 2027331 3348281417896630206')">Copy</button></td>
+              </tr>
+              <tr>
+                <td><span class="ver-badge">V15.14</span></td>
+                <td><code>870527552046858271</code></td>
+                <td><button class="copy-depot-btn" onclick="copyDepot(this,'download_depot 2027330 2027331 870527552046858271')">Copy</button></td>
+              </tr>
+              <tr>
+                <td><span class="ver-badge">V15.13</span></td>
+                <td><code>7476118174894341199</code></td>
+                <td><button class="copy-depot-btn" onclick="copyDepot(this,'download_depot 2027330 2027331 7476118174894341199')">Copy</button></td>
+              </tr>
+              <tr>
+                <td><span class="ver-badge v13">V14</span></td>
+                <td><code>278411263891078692</code></td>
+                <td><button class="copy-depot-btn" onclick="copyDepot(this,'download_depot 2027330 2027331 278411263891078692')">Copy</button></td>
+              </tr>
+              <tr>
+                <td><span class="ver-badge v13">V13</span></td>
+                <td><code>4048480789313255345</code></td>
+                <td><button class="copy-depot-btn" onclick="copyDepot(this,'download_depot 2027330 2027331 4048480789313255345')">Copy</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div><!-- /tab-depots -->
 </main>
 </div><!-- /layout -->
 <script>
@@ -852,11 +994,10 @@ BOOL APIENTRY DllMain(HMODULE hMod, DWORD reason, LPVOID lpRes) {
 const sidebarData = {
   v15: [
     {id:'v15-ch1', en:'Required Software'},
-    {id:'v15-ch2', en:'Downloading a Version'},
-    {id:'v15-ch3', en:'Coding the Plugin'},
-    {id:'v15-ch4', en:'Testing'},
-    {id:'v15-ch5', en:'PlayFab + Photon'},
-    {id:'v15-ch6', en:'Done'},
+    {id:'v15-ch2', en:'Coding the Plugin'},
+    {id:'v15-ch3', en:'Testing'},
+    {id:'v15-ch4', en:'PlayFab + Photon'},
+    {id:'v15-ch5', en:'Done'},
   ],
   v13: [
     {id:'v13-ch1', en:'Required Software'},
@@ -871,6 +1012,10 @@ const sidebarData = {
     {id:'v14-ch3', en:'Photon Setup'},
     {id:'v14-ch4', en:'Testing'},
     {id:'v14-ch5', en:'Done'},
+  ],
+  depots: [
+    {id:'dep-ch1', en:'How to Download'},
+    {id:'dep-ch2', en:'Depot Table'},
   ],
 };
 
@@ -892,7 +1037,7 @@ function rebuildSidebar() {
   nav.innerHTML = items.map((item, i) => `
     <a href="#${item.id}">
       <span class="num">${String(i+1).padStart(2,'0')}</span>
-      <span data-en="${item.en}" data-ru="${item.ru}">${item.en}</span>
+      <span >${item.en}</span>
     </a>
   `).join('');
   setupSidebarObserver();
@@ -917,6 +1062,18 @@ function setupSidebarObserver() {
 }
 
 
+
+
+function copyDepot(btn, cmd) {
+  navigator.clipboard.writeText(cmd).then(() => {
+    btn.classList.add('copied');
+    btn.textContent = 'Copied!';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.textContent = 'Copy';
+    }, 2000);
+  });
+}
 
 // ── COPY BUTTON ──
 function copyCode(btn) {
